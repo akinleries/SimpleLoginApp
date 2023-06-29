@@ -4,6 +4,7 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  AsyncStorage,
 } from "react-native";
 import { useState } from "react";
 import axios from "axios";
@@ -21,7 +22,8 @@ const LoginScreen = ({ navigation }) => {
         password,
       });
       if (response.data.success) {
-        navigation.navigate("Home");
+        await AsyncStorage.setItem("token", response.data.token);
+        navigation.navigate("HomeScreen");
       }
     } catch (error) {
       console.log(error);
